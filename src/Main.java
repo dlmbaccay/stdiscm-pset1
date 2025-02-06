@@ -13,15 +13,44 @@ public class Main {
     static int limit = 0;
 
     public static void configFallback() {
-        // todo: Implement user input fallback when config file is not found or invalid
+        System.out.println("\n Error reading configuration file. Please enter the number of threads and limit manually.");
+
+        System.out.print("\n Enter the number of threads: ");
+        String threadInput = scan.next();
+
+        while (!threadInput.matches("\\d+") || Integer.parseInt(threadInput) < 1) {
+            System.out.print(" Invalid input. Please enter a number greater than 0: ");
+            threadInput = scan.next();
+        }
+
+        threads = Integer.parseInt(threadInput);
+
+        System.out.print("\n Enter the limit: ");
+        String limitInput = scan.next();
+
+        while (!limitInput.matches("\\d+") || Integer.parseInt(limitInput) < 1) {
+            System.out.print(" Invalid input. Please enter a number greater than 0: ");
+            limitInput = scan.next();
+        }
+
+        limit = Integer.parseInt(limitInput);
     }
 
     public static String getTimestamp() {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS").format(LocalDateTime.now());
     }
 
+    public static long getDuration(String startTime, String endTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        LocalDateTime start = LocalDateTime.parse(startTime, formatter);
+        LocalDateTime end = LocalDateTime.parse(endTime, formatter);
+
+        return java.time.Duration.between(start, end).toMillis();
+    }
+
     public static void promptUI() {
         System.out.printf("""
+            \n ======================================================================
             \n Threaded Prime Number Search
             \s
              Threads: %d
@@ -33,7 +62,7 @@ public class Main {
              3 - Immediate Printing, Linear Search
              4 - Deferred Printing, Linear Search
              5 - Exit Application
-             \n Enter your choice:\s""", threads, limit);
+            """, threads, limit);
     }
 
     public static void main(String[] args) {
@@ -41,18 +70,31 @@ public class Main {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            threads = Integer.parseInt(reader.readLine());
-            limit = Integer.parseInt(reader.readLine());
-
+            String threadInput = reader.readLine();
+            String limitInput = reader.readLine();
             reader.close();
+
+            if (threadInput == null || limitInput == null) {
+                throw new IOException("Invalid configuration values");
+            } else if (!threadInput.matches("\\d+") || !limitInput.matches("\\d+")) {
+                throw new IOException("Invalid configuration values");
+            }
+
+            threads = Integer.parseInt(threadInput);
+            limit = Integer.parseInt(limitInput);
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-            // configFallback();
+            configFallback();
         }
 
         while (isRunning) {
             promptUI();
 
+            if (threads > limit) {
+                System.out.println("\n Number of threads is greater than the limit. Adjusting threads to " + limit);
+                threads = limit;
+            }
+
+            System.out.print("\n Enter your choice: ");
             String input = scan.next();
 
             do {
@@ -82,7 +124,6 @@ public class Main {
             }
 
             System.out.print("\n Do you want to run another variant? (y/n): ");
-
             String choice = scan.next();
 
             do {
@@ -94,7 +135,5 @@ public class Main {
 
             if (choice.equalsIgnoreCase("n")) isRunning = false;
         }
-
-
     }
 }

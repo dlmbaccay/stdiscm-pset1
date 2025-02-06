@@ -5,7 +5,9 @@ public class A1B1 {
 
     public static void run(int threads, int limit) {
         System.out.println("\n Running A1B1 with " + threads + " threads and limit " + limit);
-        System.out.println("\n Start Time: " + Main.getTimestamp() + "\n");
+
+        String startTime = Main.getTimestamp();
+        System.out.println("\n Start Time: " + startTime + "\n");
 
         // Create a thread pool with the specified number of threads
         ExecutorService executor = Executors.newFixedThreadPool(threads);
@@ -27,7 +29,7 @@ public class A1B1 {
                     for (int num = start; num <= end; num++) {
                         if (isPrime(num)) {
                             synchronized (System.out) {
-                                System.out.println("Thread " + threadId + " found prime: " + num + " at " + Main.getTimestamp());
+                                System.out.println(" Thread " + threadId + " found prime: " + num + " at " + Main.getTimestamp());
                             }
                         }
                     }
@@ -49,7 +51,11 @@ public class A1B1 {
             executor.shutdownNow();
         }
 
-        System.out.println("\n End Time: " + Main.getTimestamp());
+        String endTime = Main.getTimestamp();
+        System.out.println("\n End Time: " + endTime);
+
+        long duration = Main.getDuration(startTime, endTime);
+        System.out.println("\n Duration: " + duration + " ms");
     }
 
     public static boolean isPrime(int num) {

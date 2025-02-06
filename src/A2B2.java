@@ -4,7 +4,9 @@ import java.util.*;
 public class A2B2 {
     public static void run(int threads, int limit) {
         System.out.println("\n Running A2B2 with " + threads + " threads and limit " + limit);
-        System.out.println("\n Start Time: " + Main.getTimestamp() + "\n");
+
+        String startTime = Main.getTimestamp();
+        System.out.println("\n Start Time: " + startTime + "\n");
 
         // Create a thread pool with the specified number of threads
         ExecutorService executor = Executors.newFixedThreadPool(threads);
@@ -56,7 +58,11 @@ public class A2B2 {
             }
         }
 
-        System.out.println("\n\n End Time: " + Main.getTimestamp());
+        String endTime = Main.getTimestamp();
+        System.out.println("\n\n End Time: " + endTime);
+
+        long duration = Main.getDuration(startTime, endTime);
+        System.out.println("\n Duration: " + duration + " ms");
     }
 
     public static boolean isPrime(int num) {
