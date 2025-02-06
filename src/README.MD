@@ -1,5 +1,7 @@
 # Threaded Prime Number Search
 
+### GitHub Repository: [Threaded Prime Number Search](https://github.com/dlmbaccay/stdiscm-pset1)
+
 ### By: [Dominic Baccay](https://github.com/dlmbaccay)
 
 ## Overview
@@ -15,9 +17,9 @@ This application is designed to search for prime numbers using multiple threads.
 
 1. **Clone the Repository**
    ```sh
-   git clone <repository-url>
-   cd <repository-directory>
-   
+   git clone https://github.com/dlmbaccay/stdiscm-pset1.git ./stdiscm-pset1
+   cd stdiscm-pset1
+   ```
 
 2. Open the Project in IntelliJ IDEA
    - Open IntelliJ IDEA
