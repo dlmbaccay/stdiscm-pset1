@@ -28,7 +28,7 @@ public class A1B2 {
                     if (isPrime(currentNum)) {
                         synchronized (System.out) {
                             int assignedThread = threadIndex.get();
-                            System.out.println(" Thread " + assignedThread + " found prime: " + currentNum + " at " + Main.getTimestamp());
+                            System.out.println(" | " + Main.getTimestamp() + " | Thread " + assignedThread + " found prime: " + currentNum);
                         }
                     }
                 } finally {

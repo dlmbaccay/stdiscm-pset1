@@ -29,7 +29,7 @@ public class A1B1 {
                     for (int num = start; num <= end; num++) {
                         if (isPrime(num)) {
                             synchronized (System.out) {
-                                System.out.println(" Thread " + threadId + " found prime: " + num + " at " + Main.getTimestamp());
+                                System.out.println(" | " + Main.getTimestamp() + " | Thread " + threadId + " found prime: " + num);
                             }
                         }
                     }

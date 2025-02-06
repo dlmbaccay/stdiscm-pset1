@@ -47,13 +47,13 @@ public class A2B2 {
 
         // Print results in sorted order
         Collections.sort(primeResults);
-        System.out.println(" Prime Numbers from 1 to " + limit + ":\n");
+        System.out.println(" | Prime Numbers from 1 to " + limit + ":\n");
 
         for (int i = 0; i < primeResults.size(); i++) {
             System.out.print(" " + primeResults.get(i) + " ");
 
-            // line break every 10 primes
-            if ((i + 1) % 10 == 0) {
+            // line break every 15 primes
+            if ((i + 1) % 15 == 0) {
                 System.out.println();
             }
         }

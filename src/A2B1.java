@@ -65,7 +65,7 @@ public class A2B1 {
             for (int i = 0; i < results.size(); i++) {
                 List<Integer> threadPrimes = results.get(i);
                 if (!threadPrimes.isEmpty()) {
-                    System.out.println(" Thread " + (i + 1) + " primes: " + threadPrimes.stream()
+                    System.out.println(" | Thread " + (i + 1) + " primes: " + threadPrimes.stream()
                             .map(String::valueOf)
                             .collect(Collectors.joining(" ")));
                 }

@@ -13,7 +13,7 @@ public class Main {
     static int limit = 0;
 
     public static void configFallback() {
-        System.out.println("\n Error reading configuration file. Please enter the number of threads and limit manually.");
+        System.out.println("\n Invalid thread and limit configuration. Please enter the number of threads and limit manually.");
 
         System.out.print("\n Enter the number of threads: ");
         String threadInput = scan.next();
@@ -28,8 +28,8 @@ public class Main {
         System.out.print("\n Enter the limit: ");
         String limitInput = scan.next();
 
-        while (!limitInput.matches("\\d+") || Integer.parseInt(limitInput) < 1) {
-            System.out.print(" Invalid input. Please enter a number greater than 0: ");
+        while (!limitInput.matches("\\d+") || Integer.parseInt(limitInput) < 2) {
+            System.out.print(" Invalid input. Please enter a number greater than 1: ");
             limitInput = scan.next();
         }
 
@@ -78,6 +78,8 @@ public class Main {
                 throw new IOException("Invalid configuration values");
             } else if (!threadInput.matches("\\d+") || !limitInput.matches("\\d+")) {
                 throw new IOException("Invalid configuration values");
+            } else if (Integer.parseInt(threadInput) < 1 || Integer.parseInt(limitInput) < 2) {
+                throw new IOException("Invalid configuration values");
             }
 
             threads = Integer.parseInt(threadInput);
@@ -92,6 +94,8 @@ public class Main {
             if (threads > limit) {
                 System.out.println("\n Number of threads is greater than the limit. Adjusting threads to " + limit);
                 threads = limit;
+            } else if (threads == 1 || limit == 1) {
+
             }
 
             System.out.print("\n Enter your choice: ");
@@ -123,6 +127,7 @@ public class Main {
                 default -> System.out.println(" Invalid choice. Please enter a number from 1 to 5.");
             }
 
+            System.out.println("\n ======================================================================");
             System.out.print("\n Do you want to run another variant? (y/n): ");
             String choice = scan.next();
 
@@ -133,7 +138,10 @@ public class Main {
                 }
             } while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n"));
 
-            if (choice.equalsIgnoreCase("n")) isRunning = false;
+            if (choice.equalsIgnoreCase("n")) {
+                System.out.println("\n Exiting application...");
+                isRunning = false;
+            }
         }
     }
 }
