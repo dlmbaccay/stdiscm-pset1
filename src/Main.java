@@ -1,8 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
     }
 
     public static String getTimestamp() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SS").format(new Date());
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS").format(LocalDateTime.now());
     }
 
     public static void promptUI() {
@@ -39,7 +39,7 @@ public class Main {
     public static void main(String[] args) {
         String filePath = "src/config.txt";
 
-        try { // todo: implement configFallback() method
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             threads = Integer.parseInt(reader.readLine());
             limit = Integer.parseInt(reader.readLine());
