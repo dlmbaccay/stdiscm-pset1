@@ -48,6 +48,16 @@ public class Main {
         return java.time.Duration.between(start, end).toMillis();
     }
 
+    public static boolean isPrime(int num) {
+        if (num < 2) return false;
+
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) return false;
+        }
+
+        return true;
+    }
+
     public static void promptUI() {
         System.out.printf("""
             \n ======================================================================
@@ -94,8 +104,6 @@ public class Main {
             if (threads > limit) {
                 System.out.println("\n Number of threads is greater than the limit. Adjusting threads to " + limit);
                 threads = limit;
-            } else if (threads == 1 || limit == 1) {
-
             }
 
             System.out.print("\n Enter your choice: ");

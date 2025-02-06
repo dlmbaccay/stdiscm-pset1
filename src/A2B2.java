@@ -24,7 +24,7 @@ public class A2B2 {
             // Submit number as task to the executor for primality checking
             executor.submit(() -> {
                 try {
-                    if (isPrime(currentNum)) { // Add prime number to the list
+                    if (Main.isPrime(currentNum)) { // Add prime number to the list
                         primeResults.add(currentNum);
                     }
                 } finally {
@@ -63,15 +63,5 @@ public class A2B2 {
 
         long duration = Main.getDuration(startTime, endTime);
         System.out.println("\n Duration: " + duration + " ms");
-    }
-
-    public static boolean isPrime(int num) {
-        if (num < 2) return false;
-
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) return false;
-        }
-
-        return true;
     }
 }

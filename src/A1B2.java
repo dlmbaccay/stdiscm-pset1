@@ -25,7 +25,7 @@ public class A1B2 {
             // Submit number as task to the executor for primality checking
             executor.submit(() -> {
                 try {
-                    if (isPrime(currentNum)) {
+                    if (Main.isPrime(currentNum)) {
                         synchronized (System.out) {
                             int assignedThread = threadIndex.get();
                             System.out.println(" | " + Main.getTimestamp() + " | Thread " + assignedThread + " found prime: " + currentNum);
@@ -54,15 +54,5 @@ public class A1B2 {
 
         long duration = Main.getDuration(startTime, endTime);
         System.out.println("\n Duration: " + duration + " ms");
-    }
-
-    public static boolean isPrime(int num) {
-        if (num < 2) return false;
-
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) return false;
-        }
-
-        return true;
     }
 }

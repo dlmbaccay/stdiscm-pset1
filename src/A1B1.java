@@ -27,7 +27,7 @@ public class A1B1 {
             executor.submit(() -> {
                 try {
                     for (int num = start; num <= end; num++) {
-                        if (isPrime(num)) {
+                        if (Main.isPrime(num)) {
                             synchronized (System.out) {
                                 System.out.println(" | " + Main.getTimestamp() + " | Thread " + threadId + " found prime: " + num);
                             }
@@ -56,15 +56,5 @@ public class A1B1 {
 
         long duration = Main.getDuration(startTime, endTime);
         System.out.println("\n Duration: " + duration + " ms");
-    }
-
-    public static boolean isPrime(int num) {
-        if (num < 2) return false;
-
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) return false;
-        }
-
-        return true;
     }
 }
