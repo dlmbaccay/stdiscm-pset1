@@ -10,7 +10,7 @@ This application is designed to search for prime numbers using multiple threads.
 ## Build / Compilation Instructions
 
 ### Prerequisites
-- Java Development Kit (JDK) 21.0.1 or later
+- Java Development Kit (JDK) 23.0.2
 - IntelliJ IDEA 2024.3.2.2 or any other compatible IDE
 
 ### Steps to Build and Compile
