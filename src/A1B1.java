@@ -19,9 +19,12 @@ public class A1B1 {
         int range = limit / threads;
 
         for (int i = 0; i < threads; i++) {
+
+            // Calculate the range of numbers to check for primality per thread
             int start = i * range + 1;
             int end = (i == threads - 1) ? limit : (i + 1) * range;
-            int threadId = i + 1;
+
+            int threadId = i + 1; // Thread ID for printing
 
             // Submit a task to the executor for checking primality of numbers within thread range
             executor.submit(() -> {

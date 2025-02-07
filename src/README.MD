@@ -69,5 +69,5 @@ This application is designed to search for prime numbers using multiple threads.
 - `ExecutorService` was used to manage threads and execute tasks.
 - `CountDownLatch` was used on all variants to ensure that all threads have completed before calculating the total duration.
 - The `synchronizedList` from the `Collections` class was used to ensure thread safety when adding prime numbers to the list on the deferred printing variants.
-- The third variant uses the `ThreadLocal` class to print the thread ID alongside the prime numbers found by each thread.
+- The `AtomicBoolean` class was used by the 3rd and 4th variants to ensure thread-safe modification of the isPrime flag, preventing race conditions when multiple threads concurrently check the divisibility of a number.
 - `synchronized` blocks are used to ensure thread safety when printing prime numbers on the immediate printing variants.

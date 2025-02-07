@@ -1,8 +1,13 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.*;
-import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class A2B2 {
-    public static void run(int threads, int limit) {
+    // Deferred Printing, Linear Search
+
+    public static void run(int threads, int limit) { // Add immediatePrint flag
         System.out.println("\n Running A2B2 with " + threads + " threads and limit " + limit);
 
         String startTime = Main.getTimestamp();
@@ -14,23 +19,35 @@ public class A2B2 {
         // Create a latch to wait for all tasks to complete
         CountDownLatch latch = new CountDownLatch(limit - 1);
 
-        // Create a list to store prime numbers found
+        // Create a list to store prime numbers found by each thread, since printing is deferred
         List<Integer> primeResults = Collections.synchronizedList(new ArrayList<>());
 
-        // Loop through numbers from 2 to limit
+        // Check if the number is prime by checking divisibility by numbers up to sqrt(num)
+        // sqrt(num) is used as the upper limit since factors repeat after this point
         for (int num = 2; num <= limit; num++) {
             final int currentNum = num;
+            final AtomicBoolean isPrime = new AtomicBoolean(true); // isPrime flag PER NUMBER
 
-            // Submit number as task to the executor for primality checking
-            executor.submit(() -> {
-                try {
-                    if (Main.isPrime(currentNum)) { // Add prime number to the list
-                        primeResults.add(currentNum);
+            for (int divisor = 2; divisor <= num / 2; divisor++) {
+                final int finalDivisor = divisor;
+
+                executor.submit(() -> {
+                    if (currentNum % finalDivisor == 0) {
+                        isPrime.set(false);
                     }
-                } finally {
-                    // Decrement the latch count, indicating that the number has been checked for primality
-                    latch.countDown();
+                });
+
+                if (!isPrime.get()) {
+                    break;
                 }
+            }
+
+            executor.submit(() -> {
+                if (isPrime.get()) {
+                    primeResults.add(currentNum);
+                }
+
+                latch.countDown(); // Decrement latch after all divisibility checks for this number are complete
             });
         }
 
@@ -38,7 +55,7 @@ public class A2B2 {
 
         try {
             latch.await(); // Wait for all tasks to complete
-            if (!executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)) { // Fallback in case of timeout
+            if (!executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -59,7 +76,7 @@ public class A2B2 {
         }
 
         String endTime = Main.getTimestamp();
-        System.out.println("\n\n End Time: " + endTime);
+        System.out.println("\n End Time: " + endTime);
 
         long duration = Main.getDuration(startTime, endTime);
         System.out.println("\n Duration: " + duration + " ms");
