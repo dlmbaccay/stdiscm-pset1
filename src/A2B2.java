@@ -22,13 +22,13 @@ public class A2B2 {
         // Create a list to store prime numbers found by each thread, since printing is deferred
         List<Integer> primeResults = Collections.synchronizedList(new ArrayList<>());
 
-        // Check if the number is prime by checking divisibility by numbers up to sqrt(num)
-        // sqrt(num) is used as the upper limit since factors repeat after this point
         for (int num = 2; num <= limit; num++) {
             final int currentNum = num;
             final AtomicBoolean isPrime = new AtomicBoolean(true); // isPrime flag PER NUMBER
 
-            for (int divisor = 2; divisor <= num / 2; divisor++) {
+            // Check if the number is prime by checking divisibility by numbers up to sqrt(num)
+            // sqrt(num) is used as the upper limit since factors repeat after this point
+            for (int divisor = 2; divisor <= Math.sqrt(currentNum); divisor++) {
                 final int finalDivisor = divisor;
 
                 executor.submit(() -> {
