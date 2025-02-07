@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class A2B2 {
     // Deferred Printing, Linear Search
 
-    public static void run(int threads, int limit) { // Add immediatePrint flag
+    public static void run(int threads, int limit) {
         System.out.println("\n Running A2B2 with " + threads + " threads and limit " + limit);
 
         String startTime = Main.getTimestamp();
