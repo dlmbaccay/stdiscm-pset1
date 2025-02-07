@@ -76,7 +76,7 @@ public class A2B2 {
         }
 
         String endTime = Main.getTimestamp();
-        System.out.println("\n End Time: " + endTime);
+        System.out.println("\n\n End Time: " + endTime);
 
         long duration = Main.getDuration(startTime, endTime);
         System.out.println("\n Duration: " + duration + " ms");
